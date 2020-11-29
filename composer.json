@@ -1,6 +1,6 @@
 {
-    "name": "qortex/bootstrap",
-    "description": "Bootstraps a Qortex web application",
+    "name": "qortex/php-emarsys-connector",
+    "description": "Provides connection to Emarsys Omnichannel Customer Engagement Platform API v2",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "authors": [

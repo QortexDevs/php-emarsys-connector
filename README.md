@@ -1,4 +1,4 @@
-# php-emarsys-connector
+# Provides connection to Emarsys Omnichannel Customer Engagement Platform API v2
 
 ## Install
 
