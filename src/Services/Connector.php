@@ -1,6 +1,6 @@
 <?php
 
-namespace Qortex\Emarsys;
+namespace Qortex\Emarsys\Services;
 
 use GuzzleHttp\Client;
 
@@ -9,6 +9,7 @@ class Connector
     private string $username;
     private string $secret;
     private string $apiUrl;
+    private string $nonce;
 
     public function __construct($username, $secret, $apiUrl = null)
     {
@@ -20,13 +21,14 @@ class Connector
     private function prepareRequest($endpoint)
     {
         $timestamp = gmdate('c');
+        $this->nonce = md5(uniqid());
         $client = new Client([
             'base_uri' => $this->apiUrl,
             'headers' => [
                 #X-WSSE header description https://dev.emarsys.com/v2/before-you-start/authentication
                 'X-WSSE' => 'UsernameToken Username="' . $this->username .
                     '", PasswordDigest="' . $this->getPasswordDigest($timestamp) .
-                    '", Nonce="' . md5(uniqid()) .
+                    '", Nonce="' . $this->nonce .
                     '", Created="' . $timestamp . '"',
                 'Content-type' => 'application/json;charset=utf-8',
             ]

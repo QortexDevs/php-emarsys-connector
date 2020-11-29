@@ -12,7 +12,7 @@ First, obtain credentials for [Emarsys API User](https://help.emarsys.com/hc/en-
 
 Then, pass these credentials as username and secret to `EmarsysConnector` constructor:
 ``` php
-use Qortex\Emarsys\Connector as EmarsysConnector;
+use Qortex\Emarsys\Services\Connector as EmarsysConnector;
 
 $emarsysConnector = new EmarsysConnector($username, $secret);
 ```
