@@ -43,6 +43,13 @@ class Connector
         return json_decode($response->getBody()->getContents());
     }
 
+    private function sendPutRequest($endpoint, $payload)
+    {
+        $client = $this->prepareRequest($endpoint);
+        $response = $client->request('PUT', $endpoint . '/', ['json' => $payload]);
+        return json_decode($response->getBody()->getContents());
+    }
+
     private function sendGetRequest($endpoint, $query = [])
     {
         $client = $this->prepareRequest($endpoint);
@@ -64,14 +71,17 @@ class Connector
         ]);
     }
 
-    public function createContact(string $key, array $properties)
+    public function createContacts(string $key, array $contactsData)
     {
         return $this->sendPostRequest('contact', [
             'key_id' => $key,
-            'contacts' => [
-                $properties
-            ],
+            'contacts' => $contactsData
         ]);
+    }
+
+    public function createContact(string $key, array $properties)
+    {
+        return $this->createContacts($key, [$properties]);
     }
 
     public function deleteContact(string $key, string $value)
@@ -82,28 +92,47 @@ class Connector
         ]);
     }
 
-    public function removeContactFromContactListById(int $listId, int $contactId)
+    public function removeContactsFromContactListById(int $listId, array $contactIds)
     {
         return $this->sendPostRequest('contactlist/' . $listId . '/delete', [
             'key_id' => 'id',
-            'external_ids' => [
-                $contactId
-            ],
+            'external_ids' => $contactIds
+        ]);
+    }
+
+    public function removeContactFromContactListById(int $listId, int $contactId)
+    {
+        return $this->removeContactsFromContactListById($listId, [$contactId]);
+    }
+
+    public function addContactsToContactListById(int $listId, array $contactIds)
+    {
+        return $this->sendPostRequest('contactlist/' . $listId . '/add', [
+            'key_id' => 'id',
+            'external_ids' => $contactIds
         ]);
     }
 
     public function addContactToContactListById(int $listId, int $contactId)
     {
-        return $this->sendPostRequest('contactlist/' . $listId . '/add', [
-            'key_id' => 'id',
-            'external_ids' => [
-                $contactId
-            ],
-        ]);
+        return $this->addContactsToContactListById($listId, [$contactId]);
     }
 
     public function countContactsInAContactList(int $listId)
     {
         return $this->sendGetRequest('contactlist/' . $listId . '/count');
+    }
+
+    public function updateContacts(string $key, array $contactsData)
+    {
+        return $this->sendPutRequest('contact', [
+            'key_id' => $key,
+            'contacts' => $contactsData
+        ]);
+    }
+
+    public function updateContact(string $key, array $properties)
+    {
+        return $this->updateContacts($key, [$properties]);
     }
 }
