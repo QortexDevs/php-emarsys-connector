@@ -28,20 +28,30 @@ Queries all contacts matching `$key` with the `$value` in Emarsys contacts datab
 Emarsys API [List Contact Data](https://dev.emarsys.com/v2/contacts/list-contact-data)
 
 ``` php
+function createContacts(string $key, array $contactsData)
 function createContact(string $key, array $properties)
 ```
-Creates a contact in Emarsys contacts database and populates its properties with `$properties` . `$key` is used to provide uniqueness of the contact.
+Create a contact/contacts in Emarsys contacts database and populates its properties with `$properties` . `$key` is used to provide uniqueness of the contact. `$contactsData` is array of contact `$properties`.
 
 Emarsys API [Create Contacts](https://dev.emarsys.com/v2/contacts/create-contacts)
 
 ``` php
+function updateContacts(string $key, array $contactsData)
+function updateContact(string $key, array $properties)
+```
+Update a contact/contacts in Emarsys contacts database and populates its properties with `$properties` . `$key` is used to provide uniqueness of the contact. `$contactsData` is array of contact `$properties`.
+
+Emarsys API [Create Contacts](https://dev.emarsys.com/v2/contacts/update-contacts)
+
+``` php
 function deleteContact(string $key, string $value)
 ```
-Deletes a contact with `$key` equals `$value` from Emarsys contacts database.
+Delete a contact with `$key` equals `$value` from Emarsys contacts database.
 
 Emarsys API [Delete a Contact](https://dev.emarsys.com/v2/contacts/delete-contact)
 
 ``` php
+function addContactsToContactListById(int $listId, int $contactIds)
 function addContactToContactListById(int $listId, int $contactId)
 ```
 
@@ -50,9 +60,10 @@ Adds a contact defined by `$contactId` to a contact list defined by `$listId`.
 Emarsys API [Add Contacts to a Contact List](https://dev.emarsys.com/v2/contact-lists/add-contacts-to-a-contact-list)
 
 ``` php
+function removeContactsFromContactListById(int $listId, int $contactIds)
 function removeContactFromContactListById(int $listId, int $contactId)
 ```
-Removes a contact defined by `$contactId` from a contact list defined by `$listId`. 
+Removes a contact defined by `$contactId` from a contact list defined by `$listId`.
 
 Emarsys API [Remove Contacts from a Contact List](https://dev.emarsys.com/v2/contact-lists/remove-contacts-from-a-contact-list)
 

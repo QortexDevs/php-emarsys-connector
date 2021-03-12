@@ -129,7 +129,6 @@ class Connector
             'key_id' => $key,
             'contacts' => $contactsData
         ]);
-
     }
 
     public function updateContact(string $key, array $properties)
