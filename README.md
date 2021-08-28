@@ -1,5 +1,7 @@
 # Provides connection to Emarsys Omnichannel Customer Engagement Platform API v2
 
+If you are developing with Laravel, concider using [laravel-emarsys-connector](https://github.com/QortexDevs/laravel-emarsys-connector) instead. I allows to use connector as an injected dependency.
+
 ## Install
 
 ``` sh
